@@ -7,7 +7,7 @@ class Cell
 	
 	template: ->
 		"""
-		<div class='cell' id='cell-#{@row}-#{@col}'>
+		<div class='cell' id='cell-#{@row}-#{@col}' style='display: inline-block'>
 			<img id='cell-#{@row}-#{@col}-img' src='icons/ic_crop_din_black_24dp/web/ic_crop_din_black_24dp_2x.png' />
 		</div>
 		"""
@@ -39,7 +39,7 @@ class Row
 	
 	template: ->
 		"""
-		<div id='row-#{@rownum}' style='float:left'>
+		<div id='row-#{@rownum}'>
 		</div>
 		"""
 	
@@ -54,12 +54,28 @@ class Row
 			@cells.push cell
 			cell.render()
 			i++
-	
-	
-	
-myrow = new Row("#app", 0, 3)
-myrow.render()
 
+class Grid
+	constructor: (@el, @numrows) ->
+		@rows = []
+	
+	template: ->
+		"""
+		<div id='game-grid'>
+		</div>
+		"""
+	
+	render: ->
+		$(@el).append @template()
+		@generateRows(@numrows)
+		
+	generateRows: (rownums) ->
+		i = 0
+		while rownums > i
+			row = new Row("#game-grid", i, rownums)
+			@rows.push row
+			row.render()
+			i++
 
 
 
