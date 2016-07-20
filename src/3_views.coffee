@@ -3,11 +3,12 @@ turn = 1
 
 class Cell 
 	constructor: (@el, @col, @row) ->
-		@status = 'unclaimed'
-	
+        @status = 'unclaimed'
+        @id = "cell-#{@row}-#{@col}"
+        
 	template: ->
 		"""
-		<div class='cell' id='cell-#{@row}-#{@col}' style='display: inline-block'>
+        <div class='cell' id='cell-#{@row}-#{@col}' style='display: inline-block'>
 			<img id='cell-#{@row}-#{@col}-img' src='icons/ic_crop_din_black_24dp/web/ic_crop_din_black_24dp_2x.png' />
 		</div>
 		"""
@@ -35,8 +36,9 @@ class Cell
 
 class Row
 	constructor: (@el, @rownum, @numcells) ->
-		@cells = []
-	
+        @cells = []
+        @id = "row-#{@rownum}"
+    
 	template: ->
 		"""
 		<div id='row-#{@rownum}'>
