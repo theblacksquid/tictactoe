@@ -14,16 +14,16 @@ slope = (point1, point2) ->
 		else ((getY(point1) - getY(point2)) / 
 		      (getX(point1) - getX(point2)))
 
-lineFromGrid = (grid, direction) ->
+lineFromGrid = (grid, direction, start) ->
     length = grid.length
     cache = []
-    i = 0
+    i = start
     switch 
         when direction is 'HORIZONTAL'
-            grid[0]
+            grid[start]
         when direction is 'VERTICAL'
             for row in grid
-                cache.push row[0]
+                cache.push row[start]
             cache
         when direction is 'DIAGONAL'
             while length > i
