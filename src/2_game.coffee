@@ -14,11 +14,11 @@ didPlayerWin = (player, gamestate) ->
     false
 
 evalGame = (gamestate, player1, player2) ->
-    non_null = [].concat.apply([], gamestate).filter((x) ->
-            if x isnt undefined or "" or null
+    non_null = flatten(gamestate).filter((x) ->
+            if x isnt undefined or "" or null or "unclaimed"
                 true
         )
-    cells = [].concat.apply([], gamestate).length
+    cells = flatten(gamestate).length
     if didPlayerWin(player1, gamestate)
         "#{player1} wins"
     else if didPlayerWin(player2, gamestate)
