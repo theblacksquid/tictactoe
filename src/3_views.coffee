@@ -79,7 +79,8 @@ class Grid
 			row.render()
 			i++
 
-
+class Start
+	constructor: ->
 
 
 

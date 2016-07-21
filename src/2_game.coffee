@@ -45,10 +45,10 @@ game.over = (grid) ->
         for cell in row.cells
             $("#cell-#{cell.row}-#{cell.col}-img").off()
             
-game.main = (num) ->
+game.main = (parent, num) ->
     turns = @turns
     state = @state
-    grd = new Grid("#app", num)
+    grd = new Grid(parent, num)
     grd.render()
     isState = "CONTINUE"
     for row in grd.rows

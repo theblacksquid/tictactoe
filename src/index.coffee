@@ -1,3 +1,3 @@
 
 
-game.main(3)
+game.main("#app", 3)
