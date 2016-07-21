@@ -1,5 +1,5 @@
 
-turn = 1
+
 
 class Cell 
 	constructor: (@el, @col, @row) ->
@@ -17,20 +17,20 @@ class Cell
 		$(@el).append @template()
 		@onClick()
 	
-	onClick: () ->
+	onClick: ->
 		self = @
 		$("#cell-#{@row}-#{@col}-img").click(->
 			if self.status is 'unclaimed'
-				if (turn % 2) is 0
-					self.status = 'claimed-X'
+				if (game.turns % 2) is 0
+					self.status = 'O'
 					$("#cell-#{self.row}-#{self.col}-img")
 						.attr("src", "icons/ic_block_black_24dp/web/ic_block_black_24dp_2x.png")
-					turn++
+					game.turns++
 				else 
-					self.status = 'claimed-O'
+					self.status = 'X'
 					$("#cell-#{self.row}-#{self.col}-img")
 						.attr("src", "icons/ic_clear_black_24dp/web/ic_clear_black_24dp_2x.png")							
-					turn++
+					game.turns++
 			else console.log("claimed cell clicked")
 		)
 

@@ -46,3 +46,4 @@ pointsEq = (lineArr) ->
         
 flatten = (arr) ->
     [].concat.apply([], arr)
+

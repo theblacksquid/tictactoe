@@ -15,7 +15,7 @@ didPlayerWin = (player, gamestate) ->
 
 evalGame = (gamestate, player1, player2) ->
     non_null = flatten(gamestate).filter((x) ->
-            if x isnt undefined or "" or null or "unclaimed"
+            if x isnt "unclaimed"
                 true
         )
     cells = flatten(gamestate).length
@@ -27,4 +27,39 @@ evalGame = (gamestate, player1, player2) ->
         "DRAW"
     else "CONTINUE"
     
-
+getCurrentState = (grid) ->
+    rows = grid.rows
+    state = []
+    for row in rows
+        cache = []
+        for cell in row.cells
+            cache.push cell.status
+        state.push cache
+    state
+    
+game = {}
+game.state = []
+game.turns = 1
+game.over = (grid) ->
+    for row in grid.rows
+        for cell in row.cells
+            $("#cell-#{cell.row}-#{cell.col}-img").off()
+            
+game.main = (num) ->
+    turns = @turns
+    state = @state
+    grd = new Grid("#app", num)
+    grd.render()
+    isState = "CONTINUE"
+    for row in grd.rows
+        for cell in row.cells
+            $("#cell-#{cell.row}-#{cell.col}-img").click(->
+                state = getCurrentState(grd)
+                result = evalGame(state, "X", "O")
+                console.log result
+                if result isnt "CONTINUE"
+                    game.over(grd)
+                )
+    
+        
+        
