@@ -1,3 +1,3 @@
 
-
-game.main("#app", 3)
+menu = new Start("#app")
+menu.render()

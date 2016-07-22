@@ -44,6 +44,8 @@ game.over = (grid) ->
     for row in grid.rows
         for cell in row.cells
             $("#cell-#{cell.row}-#{cell.col}-img").off()
+    game.turns = 1
+    
             
 game.main = (parent, num) ->
     turns = @turns
@@ -59,6 +61,8 @@ game.main = (parent, num) ->
                 console.log result
                 if result isnt "CONTINUE"
                     game.over(grd)
+                    $("#status").html "Tic Tac Toe | #{result}"
+                    menu.onStart()
                 )
     
         
