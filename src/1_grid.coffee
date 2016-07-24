@@ -47,3 +47,36 @@ pointsEq = (lineArr) ->
 flatten = (arr) ->
     [].concat.apply([], arr)
 
+lineLength = (lineArr, ptval) ->
+    if pointsEq(lineArr)
+        lineArr.length
+    else 
+        lineArr.filter((x) -> if x is ptval then true)
+               .length
+
+ptIndex = (grid, ptval) ->
+    result = []
+    x = 0
+    for row in grid
+        y = 0
+        for cell in row
+            if cell is ptval
+                result.push [x, y]
+            y++
+        x++
+    result
+    
+getRandInt = (min, max) ->
+    Math.floor(Math.random() * (max - min + 1)) + min
+    
+ptsAroundpt = (pos) ->
+    x = getX(pos)
+    y = getY(pos)
+    directions = [[-1,0],[-1,-1],[0,-1],[1,-1],[1,0],[1,1],[0,1],[-1,1]]
+    result = []
+    for dir in directions
+        dx = getX(dir)
+        dy = getY(dir)
+        result.push [(x + dx),(y + dy)]
+    result
+    

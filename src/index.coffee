@@ -1,3 +1,3 @@
 
-menu = new Start("#app")
+menu = new App("#app")
 menu.render()

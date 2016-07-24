@@ -6,6 +6,7 @@ didPlayerWin = (player, gamestate) ->
         vert = lineFromGrid(gamestate, "VERTICAL", i)
         diag = lineFromGrid(gamestate, "DIAGONAL", 0)
         anti = lineFromGrid(gamestate, "ANTI-DIAG", 0)
+        
         arr = [horiz,vert,diag,anti]
         for item in arr
             if (pointsEq(item) is true) and (item[0] is player)
@@ -45,11 +46,13 @@ game.over = (grid) ->
         for cell in row.cells
             $("#cell-#{cell.row}-#{cell.col}-img").off()
     game.turns = 1
+
+game.players = {
+    human: null
+    ai: null
+}
     
-            
 game.main = (parent, num) ->
-    turns = @turns
-    state = @state
     grd = new Grid(parent, num)
     grd.render()
     isState = "CONTINUE"
@@ -57,13 +60,10 @@ game.main = (parent, num) ->
         for cell in row.cells
             $("#cell-#{cell.row}-#{cell.col}-img").click(->
                 state = getCurrentState(grd)
+                game.state = state
                 result = evalGame(state, "X", "O")
-                console.log result
                 if result isnt "CONTINUE"
                     game.over(grd)
                     $("#status").html "Tic Tac Toe | #{result}"
                     menu.onStart()
                 )
-    
-        
-        
