@@ -39,8 +39,11 @@ getCurrentState = (grid) ->
     state
     
 game = {}
+
 game.state = []
+
 game.turns = 1
+
 game.over = (grid) ->
     for row in grid.rows
         for cell in row.cells
@@ -48,22 +51,28 @@ game.over = (grid) ->
     game.turns = 1
 
 game.players = {
-    human: null
-    ai: null
+    human: ""
+    ai: ""
 }
+
+game.obj = {}
     
 game.main = (parent, num) ->
     grd = new Grid(parent, num)
     grd.render()
+    game.state = getCurrentState(grd)
     isState = "CONTINUE"
     for row in grd.rows
         for cell in row.cells
             $("#cell-#{cell.row}-#{cell.col}-img").click(->
-                state = getCurrentState(grd)
-                game.state = state
-                result = evalGame(state, "X", "O")
+                game.state = getCurrentState(grd)
+                ai.respond(grd)
+                result = evalGame(game.state, "X", "O")
                 if result isnt "CONTINUE"
                     game.over(grd)
                     $("#status").html "Tic Tac Toe | #{result}"
-                    menu.onStart()
+                    newGame = new SelectModal("#leftmenu")
+                    newGame.render()
                 )
+    game.state = getCurrentState(grd)
+    ai.respond(grd)

@@ -62,7 +62,8 @@ ptIndex = (grid, ptval) ->
         for cell in row
             if cell is ptval
                 result.push [x, y]
-            y++
+                y++
+            else y++
         x++
     result
     
@@ -79,4 +80,4 @@ ptsAroundpt = (pos) ->
         dy = getY(dir)
         result.push [(x + dx),(y + dy)]
     result
-    
+

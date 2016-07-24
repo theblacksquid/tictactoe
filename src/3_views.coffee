@@ -152,7 +152,6 @@ class MainModal
 				$("#status").html "Tic Tac Toe |"
 				$('#menu-btn').off()
 				console.log $("#menu-val").val() + " proper"
-				ai.respond()
 			)
 
 class App 
