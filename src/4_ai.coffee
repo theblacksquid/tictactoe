@@ -26,15 +26,14 @@ ai.read = (gamestate) ->
             self: ptIndex(gamestate, game.players.ai),
             opponent: ptIndex(gamestate, game.players.human)
         }
-        result
     catch e
-        console.log gamestate
         console.error e
+        console.log gamestate
 
 ai.eval = (input) ->
-    for item,point in input.corners
-        if point.status is 'unclaimed'
-            return point.pos
+    for key,value in input.corners
+        if value.status is 'unclaimed'
+            return value.pos
     
     if getRandInt(1, 2) is 1
         pt = input.points.self[getRandInt(0, input.points.self.length)]
@@ -51,44 +50,21 @@ ai.eval = (input) ->
                 return pos
             
 ai.respond = (grd) ->
+    state = getCurrentState(grd)
     if game.players.ai is "X"
         if (game.turns % 2) isnt 0
-            try
-                choose = ai.eval(ai.read(getCurrentState(grd)))
-                chose_cell = grd.rows[getX(choose)].cells[getY(choose)]
-                chose_cell.status = "X"
-                $("#cell-#{chose_cell.row}-#{chose_cell.col}-img").attr('src', x_path)
-                game.turns = game.turns + 1
-            catch e
-                console.log "grd: "
-                console.log grd
-                console.log "getCurrentState: "
-                console.log getCurrentState(grd)
-                console.log "game.state: "
-                console.log game.state
-                console.log "ai.read(game.state): "
-                console.log ai.read(game.state)
-                console.log "choose: " 
-                console.log choose
-                console.error e
+            choose = ai.eval(state)
+            chose_cell = grd.rows[getX(choose)].cells[getY(choose)]
+            chose_cell.status = "X"
+            $("#cell-#{chose_cell.row}-#{chose_cell.col}-img").attr('src', x_path)
+            game.turns = game.turns + 1
             
     else if game.players.ai is "O"
         if (game.turns % 2) is 0
-            try
-                choose = ai.eval(ai.read(getCurrentState(grd)))
-                chose_cell = grd.rows[getX(choose)].cells[getY(choose)]
-                chose_cell.status = "O"
-                $("#cell-#{chose_cell.row}-#{chose_cell.col}-img").attr('src', o_path)
-                game.turns = game.turns + 1
-            catch e
-                console.log "grd: "
-                console.log grd
-                console.log "getCurrentState: "
-                console.log getCurrentState(grd)
-                console.log "game.state: "
-                console.log game.state
-                console.log "ai.read(game.state): "
-                console.log ai.read(game.state)
-                console.log "choose: " 
-                console.log choose
-                console.error e
+            choose = ai.eval(state)
+            chose_cell = grd.rows[getX(choose)].cells[getY(choose)]
+            chose_cell.status = "O"
+            $("#cell-#{chose_cell.row}-#{chose_cell.col}-img").attr('src', o_path)
+            game.turns = game.turns + 1
+            
+            

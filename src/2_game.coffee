@@ -66,13 +66,13 @@ game.main = (parent, num) ->
         for cell in row.cells
             $("#cell-#{cell.row}-#{cell.col}-img").click(->
                 game.state = getCurrentState(grd)
-                ai.respond(grd)
                 result = evalGame(game.state, "X", "O")
                 if result isnt "CONTINUE"
                     game.over(grd)
                     $("#status").html "Tic Tac Toe | #{result}"
                     newGame = new SelectModal("#leftmenu")
                     newGame.render()
+                ai.respond(grd)
                 )
     game.state = getCurrentState(grd)
     ai.respond(grd)
